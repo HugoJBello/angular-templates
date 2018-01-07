@@ -10,6 +10,8 @@ import { CallbackComponent } from './callback.component';
 import { AuthService } from './auth/auth.service';
 import { ImagesService } from './images.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ImageDisplayerComponent } from './image-displayer/image-displayer.component';
+import { QueryImagesComponent } from './query-images/query-images.component';
 
 
 @NgModule({
@@ -17,8 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     HomeComponent,
     ImagesViewComponent,
-    CallbackComponent
-  ],
+    CallbackComponent,
+    ImageDisplayerComponent,
+    QueryImagesComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

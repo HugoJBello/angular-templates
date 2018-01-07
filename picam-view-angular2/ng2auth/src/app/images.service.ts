@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 export class ImagesService {
   // Define the routes we are going to interact with
   private imageParametersUrl = 'http://localhost:3333/api/deals/public';
-  private imagesPagedFiles = 'http://localhost:3333/images_base64_paged_files/page=1';
+  private imagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files/day=2018-01-06/page=1';
   //private privateDealsUrl = 'http://localhost:3333/images_base64/limit=3/skip=0'
   constructor(private http: HttpClient) { }
 
