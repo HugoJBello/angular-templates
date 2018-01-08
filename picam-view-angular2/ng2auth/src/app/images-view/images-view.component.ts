@@ -13,6 +13,7 @@ import { Image } from '../image';
 export class ImagesViewComponent implements OnInit, OnDestroy {
   imagesSub: Subscription;
   images: Image[];
+  numberImages:number;
   error: any;
 
   constructor(public imagesService: ImagesService) { }
@@ -24,6 +25,11 @@ export class ImagesViewComponent implements OnInit, OnDestroy {
         images => this.images = images,
         err => error => this.error = err
       );
+  }
+
+  onChangeNumberImages(numberImages){
+    this.numberImages=numberImages;
+    console.log("......" + this.numberImages);
   }
 
   ngOnDestroy() {

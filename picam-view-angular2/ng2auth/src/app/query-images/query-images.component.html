@@ -1,3 +1,5 @@
-<p>
-  query-images works!
-</p>
+<div class=right-menu>
+<select (change)="onChange($event)">
+  <option *ngFor="let v of options" [value]="v.id">{{v.name}}</option>
+</select>
+</div>
