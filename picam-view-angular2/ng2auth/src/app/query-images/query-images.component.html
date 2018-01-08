@@ -1,5 +1,17 @@
-<div class=right-menu>
-<select (change)="onChange($event)">
-  <option *ngFor="let v of options" [value]="v.id">{{v.name}}</option>
-</select>
+<div class=panel panel-default>
+  <div className="panel-heading">
+    <h4>Query Images</h4>
+  </div>
+  <table>
+    <tbody>
+      <tr>
+        <td>Only last &ensp;</td>
+        <td>
+          <select (change)="onChange($event)">
+            <option *ngFor="let v of options" [value]="v.id">{{v.name}}</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
