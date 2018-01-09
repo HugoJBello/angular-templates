@@ -11,23 +11,16 @@ import { Image } from '../image';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  imagesSub: Subscription;
-  images: Image[];
-  error: any;
+
 
   constructor(public imagesService: ImagesService) { }
 
   ngOnInit() {
-    this.imagesSub = this.imagesService
-      .getPrivateDeals()
-      .subscribe(
-        images => this.images = images,
-        err => error => this.error = err
-      );
+
   }
 
   ngOnDestroy() {
-    this.imagesSub.unsubscribe();
+
   }
 
 }

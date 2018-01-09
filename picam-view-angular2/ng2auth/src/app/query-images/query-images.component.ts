@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-
 @Component({
   selector: 'app-query-images',
   templateUrl: './query-images.component.html',
@@ -8,9 +7,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class QueryImagesComponent implements OnInit {
   @Input() input: string;
-  @Output() date: string;
+  @Output() onChangeDate = new EventEmitter<Date>();
   @Output() onChangeNumberImages= new EventEmitter<number>();
-
+  
+  dateNow = new Date();
   options = [
     {id: 1, name: "1"},
     {id: 10, name: "10"},
@@ -21,9 +21,15 @@ export class QueryImagesComponent implements OnInit {
 
   constructor() { }
 
-  public onChange(event): void {  // event will give you full breif of action
+  public onChangeSelector(event): void {  // event will give you full breif of action
     const newVal = event.target.value;
     this.onChangeNumberImages.emit(newVal);
+    console.log(newVal);
+  }
+
+  public onChangePicker(event): void {  // event will give you full breif of action
+    const newVal = event.target.value;
+    this.onChangeDate.emit(newVal);
     console.log(newVal);
   }
 

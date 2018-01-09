@@ -6,24 +6,15 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ImagesService {
   // Define the routes we are going to interact with
-  private imageParametersUrl = 'http://localhost:3333/api/deals/public';
-  private imagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files/day=2018-01-08/page=1';
+  private urlImagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files';
   //private privateDealsUrl = 'http://localhost:3333/images_base64/limit=3/skip=0'
   constructor(private http: HttpClient) { }
 
-  // Implement a method to get the public deals
-  getPublicDeals() {
-    return this.http
-      .get(this.imageParametersUrl)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
   // Implement a method to get the private deals
-  getPrivateDeals() {
+  getImagesDatePaged(day,page) {
+    console.log("--------" + day + "-------" + page)
     return this.http
-      .get(this.imagesPagedFiles, {
+      .get(this.urlImagesPagedFiles + "/day=" + day + "/page=" + page, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
       })
       .pipe(

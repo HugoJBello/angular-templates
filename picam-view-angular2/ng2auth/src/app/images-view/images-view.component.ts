@@ -13,23 +13,31 @@ import { Image } from '../image';
 export class ImagesViewComponent implements OnInit, OnDestroy {
   imagesSub: Subscription;
   images: Image[];
-  numberImages:number;
+  numberImages:number = 1;
+  date:Date = new Date();
   error: any;
 
   constructor(public imagesService: ImagesService) { }
 
   ngOnInit() {
     this.imagesSub = this.imagesService
-      .getPrivateDeals()
+      .getImagesDatePaged(this.formatDate(this.date),this.numberImages)
       .subscribe(
         images => this.images = images,
         err => error => this.error = err
       );
   }
+  formatDate(date){
+    return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' +  ("0" + date.getDate()).slice(-2);
+  }
 
   onChangeNumberImages(numberImages){
     this.numberImages=numberImages;
     console.log("......" + this.numberImages);
+  }
+  onChangeDate(date){
+    this.date=date;
+    console.log("......" + this.date);
   }
 
   ngOnDestroy() {
