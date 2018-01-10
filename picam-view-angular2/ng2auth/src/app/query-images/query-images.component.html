@@ -10,5 +10,8 @@
       Only from: &emsp;
       <input type="date" (change)="onChangePicker($event)" [(ngModel)]="date"/> &emsp; &emsp;
     </li>
+    <li><form>
+      <input type="submit" (ngSubmit)="onClickButton()" value="Submit"/> </form>
+    </li>
   </ul>
 </div>

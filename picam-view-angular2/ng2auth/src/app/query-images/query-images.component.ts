@@ -9,7 +9,8 @@ export class QueryImagesComponent implements OnInit {
   @Input() input: string;
   @Output() onChangeDate = new EventEmitter<Date>();
   @Output() onChangeNumberImages= new EventEmitter<number>();
-  
+  @Output() onClick= new EventEmitter<any>();
+
   dateNow = new Date();
   options = [
     {id: 1, name: "1"},
@@ -31,6 +32,12 @@ export class QueryImagesComponent implements OnInit {
     const newVal = event.target.value;
     this.onChangeDate.emit(newVal);
     console.log(newVal);
+  }
+
+  public onClickButton(): void {  // event will give you full breif of action
+    this.onChangeDate.emit(null);
+    console.log("------------");
+    alert();
   }
 
   ngOnInit() {

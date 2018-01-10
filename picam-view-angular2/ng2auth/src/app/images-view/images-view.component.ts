@@ -33,11 +33,15 @@ export class ImagesViewComponent implements OnInit, OnDestroy {
 
   onChangeNumberImages(numberImages){
     this.numberImages=numberImages;
-    console.log("......" + this.numberImages);
+    console.log("...... images " + this.numberImages);
   }
   onChangeDate(date){
     this.date=date;
-    console.log("......" + this.date);
+    console.log("...... date " + this.date);
+  }
+
+  onSubmit(){
+    console.log("'¡'¡¡¡¡¡¡'¡¡'¡¡''¡''¡");
   }
 
   ngOnDestroy() {
