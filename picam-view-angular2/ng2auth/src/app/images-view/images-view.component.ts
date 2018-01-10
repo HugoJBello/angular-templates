@@ -31,17 +31,10 @@ export class ImagesViewComponent implements OnInit, OnDestroy {
     return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' +  ("0" + date.getDate()).slice(-2);
   }
 
-  onChangeNumberImages(numberImages){
-    this.numberImages=numberImages;
-    console.log("...... images " + this.numberImages);
-  }
-  onChangeDate(date){
-    this.date=date;
-    console.log("...... date " + this.date);
-  }
-
-  onSubmit(){
+  onImagesSearch(images){
+    console.log(images);
     console.log("'¡'¡¡¡¡¡¡'¡¡'¡¡''¡''¡");
+    this.images=images;
   }
 
   ngOnDestroy() {

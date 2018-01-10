@@ -1,17 +1,19 @@
 <div class="jumbotron text-center">
-  <ul class="nav navbar-nav">
-    <li>
-      Only last: &emsp;
-      <select (change)="onChangeSelector($event)">
-        <option *ngFor="let v of options" [value]="v.id">{{v.name}}</option>
-      </select> &emsp; &emsp;
-    </li>
-    <li>
-      Only from: &emsp;
-      <input type="date" (change)="onChangePicker($event)" [(ngModel)]="date"/> &emsp; &emsp;
-    </li>
-    <li><form>
-      <input type="submit" (ngSubmit)="onClickButton()" value="Submit"/> </form>
-    </li>
-  </ul>
+  <form (ngSubmit)="onClickButton()">
+    <ul class="nav navbar-nav">
+      <li>
+        Only last: &emsp;
+        <select [(ngModel)]="imageQuery.numberOfImages" name="numberOfPages" #name="ngModel"> 
+          <option *ngFor="let v of options" [value]="v.id">{{v.name}}</option>
+        </select> &emsp; &emsp;
+      </li>
+      <li>
+        Only from: &emsp;
+        <input type="date" name="date" [(ngModel)]="imageQuery.date" #name="ngModel" /> &emsp; &emsp;
+      </li>
+      <li>
+        <input type="submit" (submit)="onClickButton()" value="Submit" />
+      </li>
+    </ul>
+  </form>
 </div>

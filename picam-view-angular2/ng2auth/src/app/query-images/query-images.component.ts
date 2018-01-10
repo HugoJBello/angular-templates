@@ -1,4 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {ImageQuery} from './imageQuery';
+import {Image} from '../image';
+import { ImagesService } from '../images.service';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-query-images',
@@ -6,10 +11,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./query-images.component.css']
 })
 export class QueryImagesComponent implements OnInit {
-  @Input() input: string;
-  @Output() onChangeDate = new EventEmitter<Date>();
-  @Output() onChangeNumberImages= new EventEmitter<number>();
-  @Output() onClick= new EventEmitter<any>();
+   imageQuery: ImageQuery = new ImageQuery(10, 1,false,false,new Date());
+   images : Image[];
+   imagesSub: Subscription;
+   error: any;
+
+
+  @Output() onImagesSearch= new EventEmitter<Image[]>();
 
   dateNow = new Date();
   options = [
@@ -20,27 +28,34 @@ export class QueryImagesComponent implements OnInit {
   ];
   selectedValue = this.options[1];
 
-  constructor() { }
 
-  public onChangeSelector(event): void {  // event will give you full breif of action
-    const newVal = event.target.value;
-    this.onChangeNumberImages.emit(newVal);
-    console.log(newVal);
-  }
-
-  public onChangePicker(event): void {  // event will give you full breif of action
-    const newVal = event.target.value;
-    this.onChangeDate.emit(newVal);
-    console.log(newVal);
-  }
+  constructor(public imagesService: ImagesService) { }
 
   public onClickButton(): void {  // event will give you full breif of action
-    this.onChangeDate.emit(null);
-    console.log("------------");
-    alert();
+    this.imagesSub = this.imagesService
+      .getImagesDatePaged(this.formatDate(this.imageQuery.date),this.imageQuery.page)
+      .subscribe(
+        images => this.images = images,
+        err => error => this.error = err,
+      // The 3rd callback handles the "complete" event.
+      () => this.onImagesSearch.emit(this.images)
+      );
+    this.onImagesSearch.emit(this.images);
+
+  }
+
+  formatDate(date){
+    alert(date);
+    return date;//date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' +  ("0" + date.getDate()).slice(-2);
   }
 
   ngOnInit() {
+    this.imagesSub = this.imagesService
+      .getImagesDatePaged(this.formatDate(new Date()),1)
+      .subscribe(
+        images => this.images = images,
+        err => error => this.error = err
+      );
   }
 
 }
