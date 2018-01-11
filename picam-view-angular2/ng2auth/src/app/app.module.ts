@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ImageDisplayerComponent } from './image-displayer/image-displayer.component';
 import { QueryImagesComponent } from './query-images/query-images.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxGalleryModule } from 'ngx-gallery';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxGalleryModule,
+    NgxImageGalleryModule
   ],
   providers: [
     AuthService,

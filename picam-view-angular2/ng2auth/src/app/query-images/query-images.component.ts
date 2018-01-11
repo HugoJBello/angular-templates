@@ -46,17 +46,12 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date) {
-    alert(date);
-    return date;//date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' +  ("0" + date.getDate()).slice(-2);
+    date=new Date(date);
+    return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' +  ("0" + date.getDate()).slice(-2);
   }
 
   ngOnInit() {
-    this.imagesSub = this.imagesService
-      .getImagesDatePaged(this.formatDate(new Date()), 1)
-      .subscribe(
-      images => this.images = images,
-      err => error => this.error = err
-      );
+  
   }
   ngOnDestroy() {
     this.imagesSub.unsubscribe();
