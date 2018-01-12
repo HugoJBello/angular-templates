@@ -2,14 +2,9 @@
 <app-query-images (onImagesSearch)="onImagesSearch($event)"></app-query-images>
 <app-image-displayer [images]="images"></app-image-displayer>
 
-<div class="col-sm-12">
-  <div class="jumbotron text-center">
-    <h2>View Public Deals</h2>
-    <a class="btn btn-lg btn-success" routerLink="/deals">Public Deals</a>
-  </div>
-</div>
+
 
 
 <div class="col-sm-12 alert alert-danger" *ngIf="error">
-  <strong>Oops!</strong> An error occurred fetching data. Please try again.
+  <strong>Oops!</strong>  An error occurred fetching data. Please try again.
 </div>

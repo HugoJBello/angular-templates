@@ -10,9 +10,9 @@ import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image
   styleUrls: ['image-displayer.component.css']
 })
 export class ImageDisplayerComponent implements OnInit {
-  @Input() images: Image[];
+  @Input() images: Image[]; 
   ngxImageGallery: NgxImageGalleryComponent;
-  urlBackend : string = "http://localhost:3333/image_recorded/"
+  urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
   // gallery configuration
   conf: GALLERY_CONF = {
     imageOffset: '0px',
@@ -22,17 +22,7 @@ export class ImageDisplayerComponent implements OnInit {
   };
     
   // gallery images
-  imagesF: GALLERY_IMAGE[] = [
-    {
-      url: "http://localhost:3333/image_recorded/1.jpeg"
-    },
-    {
-      url: "http://localhost:3333/image_recorded/1.jpeg", 
-      altText: 'two-woman-standing-on-the-ground-and-staring-at-the-mountain', 
-      extUrl: 'https://www.pexels.com/photo/two-woman-standing-on-the-ground-and-staring-at-the-mountain-669006/',
-      thumbnailUrl: "https://images.pexels.com/photos/669006/pexels-photo-669006.jpeg?w=60"
-    },
-  ];
+  imagesF: GALLERY_IMAGE[] = [ ];
  
   constructor(){
     
@@ -48,7 +38,8 @@ export class ImageDisplayerComponent implements OnInit {
     if (this.images.length>0){
      this.images.forEach(element => {
        console.log(element.path);
-        var record ={url:this.urlBackend+element.filename}
+        var record ={url:this.urlBackend+element.filename,
+                    altText:element.filename}
         this.imagesF.push(record);
       });
     }}

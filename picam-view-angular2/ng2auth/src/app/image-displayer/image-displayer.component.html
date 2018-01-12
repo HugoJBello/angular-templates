@@ -13,7 +13,7 @@
 </div> -->
 
 <div class=imageContainer>
-
+  <ng-container *ngIf="imagesF.length>0"> 
 <ngx-image-gallery 
 [images]="imagesF" 
 [conf]="conf"
@@ -21,4 +21,7 @@
 (onClose)="galleryClosed()"
 (onDelete)="deleteImage($event)"
 ></ngx-image-gallery>
+
+  
+</ng-container>
 </div>

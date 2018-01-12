@@ -6,13 +6,13 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ImagesService {
   // Define the routes we are going to interact with
-  private urlImagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files';
-  //private privateDealsUrl = 'http://localhost:3333/images_base64/limit=3/skip=0'
+ // private urlImagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files';
+  private urlImagesPagedFiles = 'http://hjbello.hopto.org:3333/images_base64_date_paged_files';
+
   constructor(private http: HttpClient) { }
 
   // Implement a method to get the private deals
   getImagesDatePaged(day,page) {
-    console.log("--------" + day + "-------" + page)
     return this.http
       .get(this.urlImagesPagedFiles + "/day=" + day + "/page=" + page, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
@@ -28,7 +28,4 @@ export class ImagesService {
     return Observable.throw(err.message || err);
   }
 
-  purchase(item) {
-    alert(`You bought the: ${item.filename}`);
-  }
 }
