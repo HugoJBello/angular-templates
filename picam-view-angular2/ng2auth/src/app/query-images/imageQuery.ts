@@ -1,10 +1,10 @@
 export class ImageQuery {
     constructor(
-    public numberOfImages: number,
+    public numberOfImages: any,
     public page: number,
     public allImages: boolean,
     public anyDate:boolean,
-    public date: Date,
+    public date: any,
     ) {}
   }
   

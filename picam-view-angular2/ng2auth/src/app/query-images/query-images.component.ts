@@ -12,7 +12,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./query-images.component.css']
 })
 export class QueryImagesComponent implements OnInit, OnDestroy {
-  imageQuery: ImageQuery = new ImageQuery(10, 1, false, false, new Date());
+  imageQuery: ImageQuery = new ImageQuery(10, 1, false, false, null);
   images: Image[];
   imagesSub: Subscription;
   error: any;
@@ -20,7 +20,6 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
 
   @Output() onImagesSearch = new EventEmitter<Image[]>();
 
-  dateNow = new Date();
   options = [
     { id: 1, name: "1" },
     { id: 10, name: "10" },
@@ -33,25 +32,50 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
   constructor(public imagesService: ImagesService) { }
 
   public onClickButton(): void {  // event will give you full breif of action
-    this.imagesSub = this.imagesService
-      .getImagesDatePaged(this.formatDate(this.imageQuery.date), this.imageQuery.page)
-      .subscribe(
-      images => this.images = images,
-      err => error => this.error = err,
-      // The 3rd callback handles the "complete" event.
-      () => this.onImagesSearch.emit(this.images)
-      );
-    this.onImagesSearch.emit(this.images);
 
+    if (this.imageQuery.numberOfImages == 'all') {
+      if (this.imageQuery.date == null) {
+
+      } else {
+        this.imagesSub = this.imagesService
+          .getImagesDatePaged(this.formatDate(this.imageQuery.date), this.imageQuery.page)
+          .subscribe(
+          images => this.images = images,
+          err => error => this.error = err,
+          // The 3rd callback handles the "complete" event.
+          () => this.onImagesSearch.emit(this.images)
+          );
+      }
+    } else {
+      if (this.imageQuery.date == null) {
+        this.imagesSub = this.imagesService
+        .getLastImagesLimit(this.imageQuery.numberOfImages)
+        .subscribe(
+        images => this.images = images,
+        err => error => this.error = err,
+        // The 3rd callback handles the "complete" event.
+        () => this.onImagesSearch.emit(this.images)
+        );
+      } else {
+        this.imagesSub = this.imagesService
+          .getLastImagesLimitDate(this.imageQuery.numberOfImages, this.formatDate(this.imageQuery.date))
+          .subscribe(
+          images => this.images = images,
+          err => error => this.error = err,
+          // The 3rd callback handles the "complete" event.
+          () => this.onImagesSearch.emit(this.images)
+          );
+      }
+    }
   }
 
   formatDate(date) {
-    date=new Date(date);
-    return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' +  ("0" + date.getDate()).slice(-2);
+    date = new Date(date);
+    return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("0" + date.getDate()).slice(-2);
   }
 
   ngOnInit() {
-  
+
   }
   ngOnDestroy() {
     this.imagesSub.unsubscribe();

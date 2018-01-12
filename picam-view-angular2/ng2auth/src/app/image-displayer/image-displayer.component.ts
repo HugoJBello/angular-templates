@@ -12,7 +12,8 @@ import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image
 export class ImageDisplayerComponent implements OnInit {
   @Input() images: Image[]; 
   ngxImageGallery: NgxImageGalleryComponent;
-  urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
+  urlBackend : string = "http://localhost:3333/image_recorded/"
+  
   // gallery configuration
   conf: GALLERY_CONF = {
     imageOffset: '0px',
@@ -26,7 +27,6 @@ export class ImageDisplayerComponent implements OnInit {
  
   constructor(){
     
-
   }
  
   ngOnInit(){
