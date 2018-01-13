@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Image } from '../image';
+
 //import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image-gallery";
 
@@ -12,10 +13,10 @@ import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image
 export class ImageDisplayerComponent implements OnInit {
   @Input() images: Image[]; 
   ngxImageGallery: NgxImageGalleryComponent;
-  urlBackend : string = "http://localhost:3333/image_recorded/"
+  urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
   
   // gallery configuration
-  conf: GALLERY_CONF = {
+  conf: GALLERY_CONF = { 
     imageOffset: '0px',
     showDeleteControl: false,
     showImageTitle: false,

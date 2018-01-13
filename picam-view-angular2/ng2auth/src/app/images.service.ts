@@ -9,7 +9,7 @@ export class ImagesService {
   // Define the routes we are going to interact with
  // private urlImagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files';
   
-  private baseUrl = 'http://localhost:3333';
+  private baseUrl = 'http://hjbello.hopto.org:3333';
   private urlImagesPagedFiles = this.baseUrl + '/images_base64_date_paged_files';
   private urlLastImagesLimit = this.baseUrl + '/get_list_images';
   private urlLastImagesLimitDate = this.baseUrl + '/images_base64_date'; // limit=:limit/skip=:skip/day=:day/';
@@ -29,6 +29,7 @@ export class ImagesService {
   }
 
   getLastImagesLimit(limit) {
+    console.log(this.baseUrl);
     return this.http
       .get(this.urlLastImagesLimit + "/" + limit, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)

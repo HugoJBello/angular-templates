@@ -1,27 +1,15 @@
-
-  <!-- <div class=imageContainer>
-    <div class="col-sm-4" *ngFor="let image of images">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">{{ image.path }}</h3>
-      </div>
-      <div class="panel-body">
-        {{ image.base64 }}
-      </div>
-    </div>
-  </div> 
-</div> -->
-
 <div class=imageContainer>
-  <ng-container *ngIf="imagesF.length>0"> 
-<ngx-image-gallery 
-[images]="imagesF" 
-[conf]="conf"
-(onOpen)="galleryOpened($event)"
-(onClose)="galleryClosed()"
-(onDelete)="deleteImage($event)"
-></ngx-image-gallery>
+  <ng-container *ngIf="imagesF.length>0">
 
-  
-</ng-container>
+    <tabs>
+      <tab tabTitle="Images">
+        <ngx-image-gallery [images]="imagesF" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onDelete)="deleteImage($event)"></ngx-image-gallery>
+      </tab>
+
+      <tab tabTitle="List">
+        list
+      </tab>
+    </tabs>
+  </ng-container>
+
 </div>
