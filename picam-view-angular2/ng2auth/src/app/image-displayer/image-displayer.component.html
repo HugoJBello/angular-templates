@@ -8,6 +8,14 @@
 
       <tab tabTitle="List">
         list
+        <ng-container *ngIf="parametersImageQuery">
+
+          <ul>
+            <li *ngFor="let item of images | paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }"> ... </li>
+          </ul>
+                     
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>        </ng-container>
+      
       </tab>
     </tabs>
   </ng-container>

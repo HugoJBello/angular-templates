@@ -1,4 +1,4 @@
-export class ImagesResponse {
+export class ParametersImageQuery {
   numberOfPages: number;
   numberOfItems: number;
   entriesPerPage:number;

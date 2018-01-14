@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ImageQuery } from './imageQuery';
+import { ImageQuery } from '../imageQuery';
 import { Image } from '../image';
 import { ImagesService } from '../images.service';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ParametersImageQuery } from '../parametersImageQuery';
 
 @Component({
   selector: 'app-query-images',
@@ -12,14 +13,17 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./query-images.component.css']
 })
 export class QueryImagesComponent implements OnInit, OnDestroy {
-  imageQuery: ImageQuery = new ImageQuery(10, 1, false, false, null);
+  @Input() imageQuery: ImageQuery;
+  @Input() parametersImageQuery: ParametersImageQuery;
   images: Image[];
   imagesSub: Subscription;
   error: any;
 
+  @Output() onChangeImagesQuery = new EventEmitter<ImageQuery>();
+  @Output() onChangeParameters = new EventEmitter<ParametersImageQuery>();
 
   @Output() onImagesSearch = new EventEmitter<Image[]>();
-
+ 
   options = [
     { id: 1, name: "1" },
     { id: 10, name: "10" },
@@ -34,6 +38,7 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
   public onClickButton(): void {  // event will give you full breif of action
 
     if (this.imageQuery.numberOfImages == 'all') {
+      this.imageQuery.page=1;
       if (this.imageQuery.date == null) {
 
       } else {
@@ -43,7 +48,16 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
           images => this.images = images,
           err => error => this.error = err,
           // The 3rd callback handles the "complete" event.
-          () => this.onImagesSearch.emit(this.images)
+          () => {this.onImagesSearch.emit(this.images);this.onChangeImagesQuery.emit(this.imageQuery);}
+          );
+          
+          this.imagesSub = this.imagesService
+          .getParametersDate(this.formatDate(this.imageQuery.date))
+          .subscribe(
+            parametersImageQuery => this.parametersImageQuery = parametersImageQuery,
+          err => error => this.error = err,
+          // The 3rd callback handles the "complete" event.
+          () => {this.onChangeParameters.emit(this.parametersImageQuery);}
           );
       }
     } else {
@@ -54,8 +68,8 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
         images => this.images = images,
         err => error => this.error = err,
         // The 3rd callback handles the "complete" event.
-        () => this.onImagesSearch.emit(this.images)
-        );
+        () => {this.onImagesSearch.emit(this.images);this.onChangeImagesQuery.emit(this.imageQuery);}
+      );
       } else {
         this.imagesSub = this.imagesService
           .getLastImagesLimitDate(this.imageQuery.numberOfImages, this.formatDate(this.imageQuery.date))
@@ -63,7 +77,7 @@ export class QueryImagesComponent implements OnInit, OnDestroy {
           images => this.images = images,
           err => error => this.error = err,
           // The 3rd callback handles the "complete" event.
-          () => this.onImagesSearch.emit(this.images)
+          () => {this.onImagesSearch.emit(this.images);this.onChangeImagesQuery.emit(this.imageQuery);}
           );
       }
     }

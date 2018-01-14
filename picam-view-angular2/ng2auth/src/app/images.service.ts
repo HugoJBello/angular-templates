@@ -10,9 +10,12 @@ export class ImagesService {
  // private urlImagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files';
   
   private baseUrl = 'http://hjbello.hopto.org:3333';
-  private urlImagesPagedFiles = this.baseUrl + '/images_base64_date_paged_files';
+  private urlImagesPagedDateFiles = this.baseUrl + '/images_base64_date_paged_files';
   private urlLastImagesLimit = this.baseUrl + '/get_list_images';
   private urlLastImagesLimitDate = this.baseUrl + '/images_base64_date'; // limit=:limit/skip=:skip/day=:day/';
+  private urlImagesPagedDateParameters = this.baseUrl + "/images_base64_parameters_date"
+  private urlImagesPagedParameters = this.baseUrl + "/images_base64_parameters"
+
   private images: Image[];
 
   constructor(private http: HttpClient) { }
@@ -20,7 +23,7 @@ export class ImagesService {
   // Implement a method to get the private deals
   getImagesDatePaged(day,page) {
     return this.http
-      .get(this.urlImagesPagedFiles + "/day=" + day + "/page=" + page, {
+      .get(this.urlImagesPagedDateFiles + "/day=" + day + "/page=" + page, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
       })
       .pipe(
@@ -42,6 +45,26 @@ export class ImagesService {
   getLastImagesLimitDate(limit,date) {
     return this.http
       .get(this.urlLastImagesLimitDate + "/limit=" + limit + "/skip=0/day=" + date, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+      })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getParametersDate(date) {
+    return this.http
+      .get(this.urlImagesPagedDateParameters + "/day=" + date, {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+      })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getParameters() {
+    return this.http
+      .get(this.urlImagesPagedParameters, {
         headers: new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`)
       })
       .pipe(

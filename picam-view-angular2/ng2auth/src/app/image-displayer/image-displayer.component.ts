@@ -1,17 +1,24 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Image } from '../image';
+import { ImageQuery } from '../imageQuery';
+import { ParametersImageQuery } from '../parametersImageQuery';
 
 //import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image-gallery";
 
 
 @Component({
-  selector: 'app-image-displayer',
+  selector: 'app-image-displayer', 
   templateUrl: 'image-displayer.component.html',
   styleUrls: ['image-displayer.component.css']
 })
 export class ImageDisplayerComponent implements OnInit {
   @Input() images: Image[]; 
+  @Input() imageQuery: ImageQuery;
+  @Input() parametersImageQuery: ParametersImageQuery;
+  
+
+  p :number = 1;
   ngxImageGallery: NgxImageGalleryComponent;
   urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
   

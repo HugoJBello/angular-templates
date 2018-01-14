@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Image } from '../image';
-
+import { ImageQuery } from '../imageQuery';
+import { ParametersImageQuery } from '../parametersImageQuery';
 
 @Component({
   selector: 'images-view-deals',
@@ -10,6 +11,8 @@ import { Image } from '../image';
 })
 export class ImagesViewComponent implements OnInit {
   images: Image[];
+  imageQuery: ImageQuery = new ImageQuery(10, null, false, false, null);
+  parametersImageQuery: ParametersImageQuery;
 
   constructor() { }
 
@@ -19,6 +22,15 @@ export class ImagesViewComponent implements OnInit {
 
   onImagesSearch(images){
     this.images=images;
+  }
+
+  onChangeImagesQuery(imageQuery){
+    this.imageQuery = imageQuery;
+    console.log(imageQuery);
+  }
+  onChangeParameters(parametersImageQuery){
+    this.parametersImageQuery = parametersImageQuery;
+    console.log(parametersImageQuery);
   }
 
 }
