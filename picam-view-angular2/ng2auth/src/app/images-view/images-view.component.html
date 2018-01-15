@@ -7,7 +7,8 @@
 
 <app-image-displayer [images]="images"
 [parametersImageQuery] = "parametersImageQuery" 
-[imageQuery]="imageQuery" ></app-image-displayer>
+[imageQuery]="imageQuery"
+(onImagesSearch)="onImagesSearch($event)" ></app-image-displayer>
 
 <div class="col-sm-12 alert alert-danger" *ngIf="error">
   <strong>Oops!</strong>  An error occurred fetching data. Please try again.

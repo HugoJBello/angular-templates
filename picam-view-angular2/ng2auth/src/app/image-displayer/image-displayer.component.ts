@@ -1,7 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Image } from '../image';
 import { ImageQuery } from '../imageQuery';
 import { ParametersImageQuery } from '../parametersImageQuery';
+
+import { ImagesService } from '../images.service';
+import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../auth/auth.service';
 
 //import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image-gallery";
@@ -16,11 +20,15 @@ export class ImageDisplayerComponent implements OnInit {
   @Input() images: Image[]; 
   @Input() imageQuery: ImageQuery;
   @Input() parametersImageQuery: ParametersImageQuery;
-  
+  @Output() onImagesSearch = new EventEmitter<Image[]>();
+  error: any;
+  imagesSub: Subscription;
+
 
   p :number = 1;
   ngxImageGallery: NgxImageGalleryComponent;
-  urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
+  //urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
+  urlBackend : string = "http://localhost.org:3333/image_recorded/"
   
   // gallery configuration
   conf: GALLERY_CONF = { 
@@ -33,7 +41,7 @@ export class ImageDisplayerComponent implements OnInit {
   // gallery images
   imagesF: GALLERY_IMAGE[] = [ ];
  
-  constructor(){
+  constructor(public imagesService: ImagesService){
     
   }
  
@@ -41,16 +49,44 @@ export class ImageDisplayerComponent implements OnInit {
 
   }
   ngOnChanges() {
+    this.loadImagesFormated();
+  }
+  loadImagesFormated(){
     this.imagesF = [];
     if (this.images){
     if (this.images.length>0){
      this.images.forEach(element => {
-       console.log(element.path);
         var record ={url:this.urlBackend+element.filename,
                     altText:element.filename}
         this.imagesF.push(record);
       });
     }}
+  }
+
+  pageChanged(page){
+    this.imageQuery.page = page;
+    if (this.imageQuery.date == null) {
+      this.imagesSub = this.imagesService
+        .getImagesPaged(this.imageQuery.page)
+        .subscribe(
+        images => this.images = images,
+        err => error => this.error = err,
+        () => {this.onImagesSearch.emit(this.images); this.loadImagesFormated();}
+        );
+    } else {
+      this.imagesSub = this.imagesService
+        .getImagesDatePaged(this.formatDate(this.imageQuery.date), this.imageQuery.page)
+        .subscribe(
+        images => this.images = images,
+        err => error => this.error = err,
+        () => {this.onImagesSearch.emit(this.images);this.loadImagesFormated(); }
+        );
+    }
+  }
+
+  formatDate(date) {
+    date = new Date(date);
+    return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("0" + date.getDate()).slice(-2);
   }
     
   // METHODS

@@ -8,14 +8,39 @@
 
       <tab tabTitle="List">
         list
-        <ng-container *ngIf="parametersImageQuery">
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Filename
+              </th>
+              <th>
+                Path
+              </th>
+              <th>
+                Date taken
+              </th>
+            </tr>
+            <ng-container *ngIf="imageQuery.numberOfImages=='all' && parametersImageQuery">
+              <tr *ngFor="let item of images | 
+                          paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: 
+                            imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }">
+                <td>{{item.filename}}</td>
+                <td>{{item.path}}</td>
+                <td>{{item.date_taken}}</td>
+              </tr>
+              <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </ng-container>
 
-          <ul>
-            <li *ngFor="let item of images | paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }"> ... </li>
-          </ul>
-                     
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>        </ng-container>
-      
+            <ng-container *ngIf="imageQuery.numberOfImages!='all'">
+              <tr *ngFor="let item of images ">
+                <td>{{item.filename}}</td>
+                <td>{{item.path}}</td>
+                <td>{{item.date_taken}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
       </tab>
     </tabs>
   </ng-container>
