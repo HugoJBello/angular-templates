@@ -13,7 +13,7 @@ export class ImagesViewComponent implements OnInit {
   images: Image[];
   imageQuery: ImageQuery = new ImageQuery(10, null, false, false, null);
   parametersImageQuery: ParametersImageQuery;
-
+  error:any;
   constructor() { }
 
   ngOnInit() {

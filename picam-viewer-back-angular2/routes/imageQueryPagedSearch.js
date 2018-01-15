@@ -13,7 +13,7 @@ router.get('/images_base64_paged_files/page=:page', function(req, res) {
     con.query('SELECT * FROM image order by date_taken desc limit ' +offset + ',' + limit, function (err, result, fields) {
       if (err) throw err;
       for (var i=0;i<result.length;i++){
-        result[i].base64 = base64_encode(result[i].path);
+        //result[i].base64 = base64_encode(result[i].path);
       }
       var response = result;
       res.json(response);
