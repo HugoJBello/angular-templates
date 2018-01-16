@@ -26,8 +26,8 @@ export class ImageDisplayerComponent implements OnInit {
 
   p :number = 1;
   ngxImageGallery: NgxImageGalleryComponent;
-  //urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
-  urlBackend : string = "http://localhost.org:3333/image_recorded/"
+  urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
+  //urlBackend : string = "http://localhost.org:3333/image_recorded/"
   
   // gallery configuration
   conf: GALLERY_CONF = { 

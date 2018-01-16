@@ -16,10 +16,10 @@ import { AuthService } from './auth/auth.service';
       <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
         <li>
-          <a routerLink="/deals" routerLinkActive="active">Home</a>
+          <a routerLink="/home" routerLinkActive="active">Home</a>
         </li>
         <li>
-          <a routerLink="/special" *ngIf="authService.authenticated" routerLinkActive="active">Camera View</a>
+          <a routerLink="/picam-view" *ngIf="authService.authenticated" routerLinkActive="active">Camera View</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

@@ -8,15 +8,15 @@ import { AuthGuard } from './auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'deals',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
-    path: 'deals',
+    path: 'home',
     component: HomeComponent
   },
   {
-    path: 'special',
+    path: 'picam-view',
     component: ImagesViewComponent,
     canActivate: [
       AuthGuard

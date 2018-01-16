@@ -1,7 +1,16 @@
 .imgGallery {
     width: 100%;
-    max-width:600px;
     height: auto;
+}
+
+.imgContainer {
+    display:block;
+    margin:auto;
+    max-width:600px;
+}
+img {
+    display:block;
+    margin:auto;
 }
 
 a {

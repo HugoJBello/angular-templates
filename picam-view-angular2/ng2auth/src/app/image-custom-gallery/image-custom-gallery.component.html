@@ -1,9 +1,9 @@
-<div class="panel panel-default">
+<div class="panel panel-default imgContainer">
   <div class="panel-heading">
     <div class="buttonsBlock">
-      <a class="previous round" (click)="showPrevious($event)">&#8249;</a>
+      <button class="previous round" (click)="showPrevious($event)">&#8249;</button>
       {{currentPage+1}}/{{numberOfPages}}
-      <a class="next round" (click)="showNext($event)">&#8250;</a>
+      <button class="next round" (click)="showNext($event)">&#8250;</button>
     </div>
     <h3 class="panel-title">{{ images[currentPage].filename }}</h3>
   </div>
