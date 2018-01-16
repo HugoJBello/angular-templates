@@ -9,8 +9,8 @@ export class ImagesService {
   // Define the routes we are going to interact with
  // private urlImagesPagedFiles = 'http://localhost:3333/images_base64_date_paged_files';
   
-  //private baseUrl = 'http://localhost:3333';
-  private baseUrl = 'http://hjbello.hopto.org:3333';
+  private baseUrl = 'http://localhost:3333';
+  //private baseUrl = 'http://hjbello.hopto.org:3333';
   private urlImagesPagedDateFiles = this.baseUrl + '/images_base64_date_paged_files';
   private urlImagesPagedFiles = this.baseUrl + '/images_base64_paged_files';
   private urlLastImagesLimit = this.baseUrl + '/get_list_images';

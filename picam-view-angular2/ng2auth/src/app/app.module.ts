@@ -17,6 +17,7 @@ import { QueryImagesComponent } from './query-images/query-images.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
+import { ImageCustomGalleryComponent } from './image-custom-gallery/image-custom-gallery.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NgxImageGalleryModule } from 'ngx-image-gallery';
     ImagesViewComponent,
     CallbackComponent,
     ImageDisplayerComponent,
-    QueryImagesComponent
+    QueryImagesComponent,
+    ImageCustomGalleryComponent
     ],
   imports: [
     BrowserModule,

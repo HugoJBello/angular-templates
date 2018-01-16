@@ -1,9 +1,11 @@
 <div class=imageContainer>
   <ng-container *ngIf="imagesF.length>0">
 
-    <tabs>
+
+    <tabs class=imageContainer>
+
       <tab tabTitle="Images">
-        <ngx-image-gallery [images]="imagesF" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onDelete)="deleteImage($event)"></ngx-image-gallery>
+        <app-image-custom-gallery [images]="images"></app-image-custom-gallery>>
       </tab>
 
       <tab tabTitle="List">
@@ -42,6 +44,11 @@
           </tbody>
         </table>
       </tab>
+
+      <tab tabTitle="Gallery">
+        <ngx-image-gallery [images]="imagesF" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onDelete)="deleteImage($event)"></ngx-image-gallery>
+      </tab>
+
     </tabs>
   </ng-container>
 

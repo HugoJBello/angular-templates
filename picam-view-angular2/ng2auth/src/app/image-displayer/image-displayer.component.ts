@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Image } from '../image';
 import { ImageQuery } from '../imageQuery';
 import { ParametersImageQuery } from '../parametersImageQuery';
-
 import { ImagesService } from '../images.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../auth/auth.service';
@@ -27,8 +26,8 @@ export class ImageDisplayerComponent implements OnInit {
 
   p :number = 1;
   ngxImageGallery: NgxImageGalleryComponent;
-  urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
-  //urlBackend : string = "http://localhost.org:3333/image_recorded/"
+  //urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
+  urlBackend : string = "http://localhost.org:3333/image_recorded/"
   
   // gallery configuration
   conf: GALLERY_CONF = { 
@@ -56,7 +55,9 @@ export class ImageDisplayerComponent implements OnInit {
     if (this.images){
     if (this.images.length>0){
      this.images.forEach(element => {
-        var record ={url:this.urlBackend+element.filename,
+        var url = this.urlBackend+element.filename;
+        element.url= url;
+        var record ={url:url,
                     altText:element.filename}
         this.imagesF.push(record);
       });
