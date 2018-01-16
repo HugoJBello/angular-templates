@@ -5,13 +5,14 @@
     <tabs class=imageContainer>
 
       <tab tabTitle="Images">
-        <app-image-custom-gallery [images]="images"></app-image-custom-gallery>>
+        <app-image-custom-gallery [images]="images"></app-image-custom-gallery>
       </tab>
 
       <tab tabTitle="List">
         list
-        <table>
-          <tbody>
+        <!-- <table datatable> -->
+        <table class="display responsive no-wrap">
+          <thead>
             <tr>
               <th>
                 Filename
@@ -23,7 +24,9 @@
                 Date taken
               </th>
             </tr>
+          </thead>
             <ng-container *ngIf="imageQuery.numberOfImages=='all' && parametersImageQuery">
+              <tbody>
               <tr *ngFor="let item of images | 
                           paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: 
                             imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }">

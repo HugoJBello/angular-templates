@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import {TabModule} from 'angular-tabs-component';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -38,7 +39,8 @@ import { ImageCustomGalleryComponent } from './image-custom-gallery/image-custom
     NgxGalleryModule,
     NgxImageGalleryModule,
     TabModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DataTablesModule
     ],
   providers: [
     AuthService,
