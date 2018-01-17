@@ -2,16 +2,22 @@
   <ng-container *ngIf="imagesF.length>0">
 
 
-    <tabs class=imageContainer>
+    <mat-tab-group>
 
-      <tab tabTitle="Images">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          Images
+        </ng-template>
         <app-image-custom-gallery [images]="images"></app-image-custom-gallery>
-      </tab>
+      </mat-tab>
 
-      <tab tabTitle="List">
-        list
+      <mat-tab>
+        <ng-template mat-tab-label>
+          Files
+        </ng-template>
+
         <!-- <table datatable> -->
-        <table class="display responsive no-wrap">
+        <table>
           <thead>
             <tr>
               <th>
@@ -25,8 +31,8 @@
               </th>
             </tr>
           </thead>
-            <ng-container *ngIf="imageQuery.numberOfImages=='all' && parametersImageQuery">
-              <tbody>
+          <ng-container *ngIf="imageQuery.numberOfImages=='all' && parametersImageQuery">
+            <tbody>
               <tr *ngFor="let item of images | 
                           paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: 
                             imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }">
@@ -35,24 +41,27 @@
                 <td>{{item.date_taken}}</td>
               </tr>
               <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-            </ng-container>
+          </ng-container>
 
-            <ng-container *ngIf="imageQuery.numberOfImages!='all'">
-              <tr *ngFor="let item of images ">
-                <td>{{item.filename}}</td>
-                <td>{{item.path}}</td>
-                <td>{{item.date_taken}}</td>
-              </tr>
-            </ng-container>
+          <ng-container *ngIf="imageQuery.numberOfImages!='all'">
+            <tr *ngFor="let item of images ">
+              <td>{{item.filename}}</td>
+              <td>{{item.path}}</td>
+              <td>{{item.date_taken}}</td>
+            </tr>
+          </ng-container>
           </tbody>
         </table>
-      </tab>
+      </mat-tab>
 
-      <tab tabTitle="Gallery">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          Files
+        </ng-template>
         <ngx-image-gallery [images]="imagesF" [conf]="conf" (onOpen)="galleryOpened($event)" (onClose)="galleryClosed()" (onDelete)="deleteImage($event)"></ngx-image-gallery>
-      </tab>
+      </mat-tab>
 
-    </tabs>
+    </mat-tab-group>
   </ng-container>
 
 </div>

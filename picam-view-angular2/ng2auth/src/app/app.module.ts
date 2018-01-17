@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import {TabModule} from 'angular-tabs-component';
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { TabModule } from 'angular-tabs-component';
+import { NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
@@ -19,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { ImageCustomGalleryComponent } from './image-custom-gallery/image-custom-gallery.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ImageCustomGalleryComponent } from './image-custom-gallery/image-custom
     NgxImageGalleryModule,
     TabModule,
     NgxPaginationModule,
-    DataTablesModule
+    DataTablesModule,
+    MatTabsModule,BrowserAnimationsModule
     ],
   providers: [
     AuthService,
