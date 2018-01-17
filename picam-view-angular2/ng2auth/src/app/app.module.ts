@@ -20,7 +20,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { ImageCustomGalleryComponent } from './image-custom-gallery/image-custom-gallery.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TabModule,
     NgxPaginationModule,
     DataTablesModule,
-    MatTabsModule,BrowserAnimationsModule
+    MatTabsModule, NoopAnimationsModule//,BrowserAnimationsModule
     ],
   providers: [
     AuthService,

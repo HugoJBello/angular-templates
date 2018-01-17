@@ -1,7 +1,3 @@
-.imgGallery {
-    width: 100%;
-    height: auto;
-}
 
 .imgContainer {
     display:block;
@@ -11,6 +7,8 @@
 img {
     display:block;
     margin:auto;
+    width: 100%;
+    height: auto;
 }
 
 a {
