@@ -10,7 +10,9 @@ img {
     width: 100%;
     height: auto;
 }
-
+::ng-deep .mat-tab-labels{
+    justify-content: center; /* align items in Main Axis */
+}
 a {
     text-decoration: none;
     display: inline-block;
