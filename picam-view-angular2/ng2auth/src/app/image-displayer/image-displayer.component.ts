@@ -5,6 +5,7 @@ import { ParametersImageQuery } from '../parametersImageQuery';
 import { ImagesService } from '../images.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../auth/auth.service';
+import {MatTableDataSource} from '@angular/material';
 
 //import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { NgxImageGalleryComponent, GALLERY_IMAGE, GALLERY_CONF } from "ngx-image-gallery";
@@ -20,28 +21,29 @@ export class ImageDisplayerComponent implements OnInit {
   @Input() imageQuery: ImageQuery;
   @Input() parametersImageQuery: ParametersImageQuery;
   @Output() onImagesSearch = new EventEmitter<Image[]>();
+  
   error: any;
   imagesSub: Subscription;
 
-
-  p :number = 1;
-  ngxImageGallery: NgxImageGalleryComponent;
   //urlBackend : string = "http://hjbello.hopto.org:3333/image_recorded/"
   urlBackend : string = "http://localhost.org:3333/image_recorded/"
   
   // gallery configuration
+  ngxImageGallery: NgxImageGalleryComponent;
   conf: GALLERY_CONF = { 
     imageOffset: '0px',
     showDeleteControl: false,
     showImageTitle: false,
     inline :true
   };
-    
   // gallery images
   imagesF: GALLERY_IMAGE[] = [ ];
- 
+  
+  // table configuration
+  dataSource = new MatTableDataSource<Image>(this.images);
+  displayedColumns = ['filename', 'path', 'date_taken',];
+
   constructor(public imagesService: ImagesService){
-    
   }
  
   ngOnInit(){
@@ -49,6 +51,8 @@ export class ImageDisplayerComponent implements OnInit {
   }
   ngOnChanges() {
     this.loadImagesFormated();
+    this.dataSource = new MatTableDataSource<Image>(this.images);
+
   }
   loadImagesFormated(){
     this.imagesF = [];

@@ -17,35 +17,37 @@
         </ng-template>
 
         <!-- <table datatable> -->
-            <table class="centeredTable">
-              <thead>
-                <tr>
-                  <th> Filename </th>
-                  <th> Path </th>
-                  <th> Date taken </th>
-                </tr>
-              </thead>
-              <ng-container *ngIf="imageQuery.numberOfImages=='all' && parametersImageQuery">
-                <tbody>
-                  <tr *ngFor="let item of images | 
-                          paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: 
-                            imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }">
-                    <td>{{item.filename}}</td>
-                    <td>{{item.path}}</td>
-                    <td>{{item.date_taken}}</td>
-                  </tr>
-                  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
-              </ng-container>
 
-              <ng-container *ngIf="imageQuery.numberOfImages!='all'">
-                <tr *ngFor="let item of images ">
-                  <td>{{item.filename}}</td>
-                  <td>{{item.path}}</td>
-                  <td>{{item.date_taken}}</td>
-                </tr>
-              </ng-container>
-              </tbody>
-            </table>
+        <mat-table #table [dataSource]="dataSource">
+          <!-- filename Column -->
+          <ng-container matColumnDef="filename">
+            <mat-header-cell *matHeaderCellDef> Filename </mat-header-cell>
+            <mat-cell *matCellDef="let image"> {{image.filename}} </mat-cell>
+          </ng-container>
+
+          <!-- path Column -->
+          <ng-container matColumnDef="path">
+            <mat-header-cell *matHeaderCellDef> Path </mat-header-cell>
+            <mat-cell *matCellDef="let image"> {{image.path}} </mat-cell>
+          </ng-container>
+
+          <!-- date Column -->
+          <ng-container matColumnDef="date_taken">
+            <mat-header-cell *matHeaderCellDef> Date taken </mat-header-cell>
+            <mat-cell *matCellDef="let image"> {{image.date_taken}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <!-- pagination -->
+        <ng-container *ngIf="imageQuery.numberOfImages=='all' && parametersImageQuery">
+        <div *ngFor="let item of images | 
+                          paginate: { itemsPerPage: parametersImageQuery.entriesPerPage, currentPage: 
+                            imageQuery.page,totalItems:parametersImageQuery.numberOfItems  }"></div>
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+        </ng-container>
       </mat-tab>
 
       <mat-tab class="demo-tab-component">

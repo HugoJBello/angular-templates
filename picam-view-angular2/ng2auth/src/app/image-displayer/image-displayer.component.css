@@ -11,3 +11,10 @@
     margin-left:auto; 
     margin-right:auto;
 }
+::ng-deep .mat-tab-labels{
+    justify-content: center; /* align items in Main Axis */
+}
+.mat-tab-label-active{
+    background-color: #3398dc !important;
+    opacity: 1 !important;
+    }
