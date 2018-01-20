@@ -3,10 +3,11 @@ var router = express.Router();
 var mysql = require('mysql');
 var fs = require('fs');
 var con = require('../mysql_connection/connection');
+var checkJwt = require('../auth/checkJwt');
 
 const entriesPerPage=10;
 
-router.get('/images_base64_paged_files/page=:page', function(req, res) {
+router.get('/images_base64_paged_files/page=:page',checkJwt, function(req, res) {
   if(req.params.page){
     var limit = entriesPerPage;
     var offset = entriesPerPage*(req.params.page-1);
@@ -23,7 +24,7 @@ router.get('/images_base64_paged_files/page=:page', function(req, res) {
  }
 });
 
-router.get('/images_base64_date_paged_files/day=:day/page=:page', function(req, res) {
+router.get('/images_base64_date_paged_files/day=:day/page=:page',checkJwt, function(req, res) {
  if((req.params.day!==undefined) && (req.params.page!==undefined)){
     var limit = entriesPerPage;
     var offset = entriesPerPage*(req.params.page-1);
@@ -42,7 +43,7 @@ router.get('/images_base64_date_paged_files/day=:day/page=:page', function(req, 
  }
 });
 
-router.get('/image_recorded/:filename', function(req, res) { 
+router.get('/image_recorded/:filename',checkJwt, function(req, res) { 
   con.query('SELECT * FROM image where filename =  "'+ req.params.filename+'" limit 1', function (err, result, fields) {
       if (err) throw err;    
       try {

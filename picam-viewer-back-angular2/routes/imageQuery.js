@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var fs = require('fs');
-
+var checkJwt = require('../auth/checkJwt');
 var con = require('../mysql_connection/connection');
 
-router.get('/get_list_images/:limit', function(req, res, next) {
+router.get('/get_list_images/:limit', checkJwt,function(req, res, next) {
     con.query("SELECT * FROM image order by date_taken desc limit " + req.params.limit, function (err, result, fields) {
       if (err) {
         console.log(err);
@@ -16,7 +16,7 @@ router.get('/get_list_images/:limit', function(req, res, next) {
 });
 
 
-router.get('/images_base64_date/limit=:limit/skip=:skip/day=:day', function(req, res) {
+router.get('/images_base64_date/limit=:limit/skip=:skip/day=:day',checkJwt, function(req, res) {
     if(req.params.limit &&  req.params.day){
       con.query('SELECT * FROM image where date_taken LIKE "'+ req.params.day +'%" order by date_taken desc limit ' + req.params.limit + " OFFSET " + req.params.skip, function (err, result, fields) {
         if (err) throw err;
