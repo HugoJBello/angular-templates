@@ -17,7 +17,7 @@ const jwks = require('jwks-rsa');
 const cors = require('cors');
 const jwtAuthz = require('express-jwt-authz');
 
-var jwtCheck = jwt({
+var jwtCheck = jwt({ 
   secret: jwks.expressJwtSecret({
       cache: true,
       rateLimit: true,
@@ -45,14 +45,15 @@ app.set('view engine', 'picam-viewer-backend');
 
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', imageQuery);
 app.use('/', imageQueryPagedSearch);
-//app.use('/', imageSaverFromCam);
+app.use('/', imageSaverFromCam);
 
 
 // catch 404 and forward to error handler

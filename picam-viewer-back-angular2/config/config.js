@@ -1,6 +1,6 @@
 module.exports = {
     //destinyPath:"/media/pi/PINCHO/",
-    destinyPath:"/home/hugo/Pictures",
+    destinyPath:"/home/hjbello/Pictures",
     basicAuthUser:"norhug",
     basicAuthPassword:"b1234"
 

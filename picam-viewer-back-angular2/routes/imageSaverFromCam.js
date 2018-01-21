@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
+const fs = require('fs-extra')
 var con = require('../mysql_connection/connection');
 var config = require('../config/config');
 
@@ -24,26 +24,44 @@ var auth = function (req, res, next) {
  
 
 router.post("/save_new_shot", auth, function (req, res) {
-  console.log(req.body);
-  var destinyPath = config.destinyPath + req.body.filename;
+  var basePath = config.destinyPath + "/" + formatDate(new Date);
+  var destinyPath = basePath  + "/" + req.body.filename;
   var sql = 'insert into image (date_taken,path,filename) values (sysdate(),"' + destinyPath + '","' + req.body.filename + '");'
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
   });
-  decode_base64_save(req.body.base64Image,destinyPath);
-  res.send("received correctly");
+  try{
+    ensureExists(basePath).then(
+      saveBase64Image(req.body.base64,destinyPath));
+  } catch (err) {
+    console.log(err)
+  }
+  
+  res.send("received and saved correctly");
 });
 
-// function to encode file data to base64 encoded string
-function decode_base64_save(textBase64) {
+function saveBase64Image(textBase64,destinyPath) {
   try {
-    // read binary data
-    //var bitmap = fs.readFileSync(file); 
-    // convert binary data to base64 encoded string
-    //return new Buffer(bitmap).toString('base64');
+    base64Data  =   textBase64.replace(/^data:image\/png;base64,/, "");
+    base64Data  +=  base64Data.replace('+', ' ');
+    binaryData  =   new Buffer(base64Data, 'base64').toString('binary');
+
+    fs.writeFile(destinyPath, binaryData, "binary", function (err) {
+      console.log(err); 
+    });
   } catch (err) {
     console.log(err);
   }
+}
+
+function ensureExists(path) {
+  fs.ensureDir(path);
+  return new Promise(resolve => {
+    resolve();
+  });
+}
+function formatDate(date) {
+  return date.getFullYear() + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + ("0" + date.getDate()).slice(-2);
 }
 
 module.exports = router;
