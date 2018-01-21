@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var fs = require('fs');
 var con = require('../mysql_connection/connection');
-var checkJwt = require('../auth/checkJwt');
+const checkJwt = require('../auth/checkJwt');
 
 const entriesPerPage=10;
 
@@ -43,25 +43,7 @@ router.get('/images_base64_date_paged_files/day=:day/page=:page',checkJwt, funct
  }
 });
 
-router.get('/image_recorded/:filename',checkJwt, function(req, res) { 
-  con.query('SELECT * FROM image where filename =  "'+ req.params.filename+'" limit 1', function (err, result, fields) {
-      if (err) throw err;    
-      try {
-        var file = result[0].path;
-        // read binary data
-        var bitmap = fs.readFileSync(file); 
-        // convert binary data to base64 encoded string
-        res.contentType('image/jpeg');
-        res.end(bitmap,"binary");
-      } catch (err) {
-        return null;
-      }      
-    });
-    
-});
-
-
-router.get('/images_base64_parameters_date/day=:day', function(req, res) { 
+router.get('/images_base64_parameters_date/day=:day',checkJwt, function(req, res) { 
   con.query('SELECT count(*) FROM image where date_taken LIKE "'+ req.params.day + '%"', function (err, result, fields) {
     if (err) throw err;    
     response={};
@@ -72,7 +54,7 @@ router.get('/images_base64_parameters_date/day=:day', function(req, res) {
   });
 });
 
-router.get('/images_base64_parameters/', function(req, res) { 
+router.get('/images_base64_parameters/',checkJwt, function(req, res) { 
   con.query('SELECT count(*) FROM image', function (err, result, fields) {
     response={};
     response.numberOfPages = Math.floor(result[0]['count(*)']/entriesPerPage)+1;

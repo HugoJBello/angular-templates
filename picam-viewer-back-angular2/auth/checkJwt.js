@@ -10,9 +10,9 @@ const checkJwt = jwt({
   // based on the kid in the header and 
   // the signing keys provided by the JWKS endpoint.
   secret: jwksRsa.expressJwtSecret({
-    cache: true,
+    cache: false,
     rateLimit: true,
-    jwksRequestsPerMinute: 5,
+    jwksRequestsPerMinute: 10,
     jwksUri: `https://cam-viewer-hjbello.eu.auth0.com/.well-known/jwks.json`
   }),
 
