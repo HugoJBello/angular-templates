@@ -17,12 +17,12 @@ export class CwsCallTestComponent implements OnInit {
 
   public callCws(){
     // var cswUrl="https://www.geopicardie.fr/geonetwork/srv/fre/csw-for-harvesters"
-    const cswUrl = 'http://demo.pycsw.org/cite/csw';
+    // const cswUrl = 'http://demo.pycsw.org/cite/csw';
     // let cswUrl="http://ltpprn:8080/geonetwork/srv/eng/csw"
     // let cswUrl="http://localhost:8080/geonetwork/srv/eng/csw"
 
 	  // -80, 150, 80, -150
-
+     let cswUrl = "http://localhost:9191/geoserver/csw";
     // let cswUrl="http://www.ign.es/csw-inspire/srv/spa/csw"
 
 
